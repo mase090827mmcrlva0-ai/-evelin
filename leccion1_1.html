@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Cuál es el color rosa?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body {
+            padding: 30px;
+            text-align: center;
+            background-color: #fef5f9;
+        }
+        h1 {
+            margin-bottom: 30px;
+            color: #d63384;
+        }
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .tarjeta-color {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 0 #f0d9e8;
+            width: 170px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 3px solid transparent;
+        }
+        .tarjeta-color:hover {
+            transform: translateY(-3px);
+        }
+        .tarjeta-color.seleccionada {
+            border-color: #d63384;
+            background-color: #fff0f7;
+        }
+        .tarjeta-color img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        .tarjeta-color p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4b4b4b;
+        }
+        .naranja-texto {
+            color: #e67e22;
+        }
+        .boton-accion {
+            padding: 14px 30px;
+            background-color: #d63384;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #b02a6b;
+            transition: all 0.1s;
+            margin-top: 10px;
+        }
+        .boton-accion:hover {
+            background-color: #e04592;
+        }
+        .boton-accion:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+        .mensaje {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: none;
+        }
+        .correcto {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        .incorrecto {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <h1>¿Cuál es el color rosa?</h1
+        <!-- Opción 1: Rosa = roxa (respuesta correcta) -->
+        <div class="tarjeta-color" id="opcion-rosa" onclick="seleccionar(this, true)">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC3Z4UbpC_cEkWZtUSNyvfA-zPaMDXQIsbdINVznf-Lg&s=10" alt="Color rosa">
+            <p>roxa</p>
+        </div>
+
+        <!-- Opción 2: Blanco -->
+        <div class="tarjeta-color" onclick="seleccionar(this, false)">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcy5lzRG0e9GrApvKAwIUubnTfUHp2UDrPpgqBbD5zeA&s=10" alt="Color blanco">
+            <p>boxo</p>
+        </div>
+
+        <!-- Opción 3: Naranja -->
+        <div class="tarjeta-color" onclick="seleccionar(this, false)">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXZrcF0QB_9-TSCDY_E1sPuU5VyUWV64rGqYHtnHMYVw&s=10" alt="Color naranja">
+            <p class="naranja-texto">naranxa</p>
+        </div>
+    </div>
+
+    <div id="mensaje" class="mensaje"></div>
+
+    <br>
+    <button class="boton-accion" onclick="window.location.href='leccion1.html'">Ir a la lección →</button>
+
+    <script>
+        function seleccionar(elemento, esCorrecta) {
+            // Quitar selección de todas
+            document.querySelectorAll('.tarjeta-color').forEach(tarjeta => {
+                tarjeta.classList.remove('seleccionada');
+            });
+
+            // Marcar la elegida
+            elemento.classList.add('seleccionada');
+
+            // Mostrar mensaje
+            const caja = document.getElementById('mensaje');
+            caja.style.display = 'block';
+
+            if (esCorrecta) {
+                caja.className = 'mensaje correcto';
+                caja.textContent = '✅ ¡Correcto! "roxa" también significa rosa en Otomí 🌸';
+            } else {
+                caja.className = 'mensaje incorrecto';
+                caja.textContent = '❌ No es ese. Inténtalo de nuevo 💪';
+            }
+        }
+    </script>
+</body>
+</html>

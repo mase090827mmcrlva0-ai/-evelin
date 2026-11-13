@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lección — Colores en Otomí</title>
+     <link rel="stylesheet" href="leccion1_1.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f0f4f8;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .barra-superior {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+        .barra-progreso {
+            flex: 1;
+            height: 12px;
+            background-color: #e5e5e5;
+            border-radius: 6px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+        .progreso {
+            height: 100%;
+            background-color: #58cc02;
+            width: 0%;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+        .corazon {
+            color: #ff4b4b;
+            font-size: 1.3rem;
+        }
+        .contenedor-pregunta {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 0 #e5e5e5;
+        }
+        .numero-pregunta {
+            color: #9b9b9b;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .texto-pregunta {
+            font-size: 1.4rem;
+            color: #4b4b4b;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .opcion {
+            display: block;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border: 2px solid #e5e5e5;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .opcion:hover {
+            border-color: #58cc02;
+            background-color: #f0ffe6;
+        }
+        .opcion.seleccionada {
+            border-color: #58cc02;
+            background-color: #e0ffcc;
+        }
+        .boton-respuesta {
+            width: 100%;
+            margin-top: 20px;
+            padding: 16px;
+            background-color: #58cc02;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #46a302;
+            transition: all 0.1s;
+        }
+        .boton-respuesta:disabled {
+            background-color: #e5e5e5;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+        .boton-respuesta:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+        .retroalimentacion {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            display: none;
+            font-weight: bold;
+        }
+        .correcto {
+            background-color: #e0ffcc;
+            color: #46a302;
+            border-left: 4px solid #58cc02;
+        }
+        .incorrecto {
+            background-color: #ffe6e6;
+            color: #d63030;
+            border-left: 4px solid #ff4b4b;
+        }
+        .resultado-final {
+            text-align: center;
+            display: none;
+        }
+        .resultado-final h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .feliz { color: #58cc02; }
+        .triste { color: #ff4b4b; }
+        .boton-naranja {
+            background-color: #ff9f1a;
+            box-shadow: 0 4px 0 #e68e00;
+        }
+        .boton-naranja:hover {
+            background-color: #ffb03d;
+        }
+        .boton-naranja:active {
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- PANTALLA DE PREGUNTAS -->
+    <div id="pantalla-leccion">
+        <div class="barra-superior">
+            <span class="corazon">❤️</span>
+            <div class="barra-progreso">
+                <div class="progreso" id="barra-progreso"></div>
+            </div>
+            <span id="contador">1/5</span>
+        </div>
+
+        <div class="contenedor-pregunta">
+            <p class="numero-pregunta">Pregunta <span id="num-p">1</span> de 5</p>
+            <h2 class="texto-pregunta" id="texto-pregunta">¿Es correcto "roxa" para decir rojo?</h2>
+
+            <label class="opcion" id="opcion-si" onclick="seleccionar('si')">
+                ✅ Sí, está bien escrito
+            </label>
+            <label class="opcion" id="opcion-no" onclick="seleccionar('no')">
+                ❌ No, está mal escrito
+            </label>
+
+            <button class="boton-respuesta" id="boton-continuar" onclick="verificar()" disabled>
+                Continuar
+            </button>
+
+            <div id="retro" class="retroalimentacion"></div>
+        </div>
+    </div>
+
+    <!-- PANTALLA DE RESULTADO FINAL -->
+    <div id="pantalla-final" class="resultado-final">
+        <h2 id="mensaje-final"></h2>
+        <p id="puntuacion-final" style="font-size: 1.3rem; margin-bottom: 30px;"></p>
+        <button class="boton-respuesta boton-naranja" onclick="reiniciar()">
+            Volver a intentar
+        </button>
+        <br><br>
+        <button class="boton-respuesta" onclick="window.location.href='index.html'">
+            🏠 Página principal
+        </button>
+    </div>
+
+    <script>
+        // Base de datos de preguntas
+        const preguntas = [
+            { texto: '¿Es correcto "roxa" para decir rojo?', respuesta: 'si', explicacion: '✅ ¡Correcto! "roxa" = rojo' },
+            { texto: '¿Es correcto "boxo" para decir blanco?', respuesta: 'si', explicacion: '✅ ¡Exacto! "boxo" = blanco' },
+            { texto: '¿Es correcto "naranxa" para decir naranja?', respuesta: 'si', explicacion: '✅ Bien hecho. "naranxa" = naranja' },
+            { texto: '¿Se escribe "ziri" para azul?', respuesta: 'si', explicacion: '✅ Correcto. "ziri" = azul' },
+            { texto: '¿Se escribe "tx\'axu" para verde?', respuesta: 'si', explicacion: '✅ ¡Perfecto! "tx\'axu" = verde' }
+        ];
+
+        let actual = 0;
+        let aciertos = 0;
+        let seleccion = null;
+
+        function cargarPregunta() {
+            seleccion = null;
+            document.getElementById('opcion-si').classList.remove('seleccionada');
+            document.getElementById('opcion-no').classList.remove('seleccionada');
+            document.getElementById('boton-continuar').disabled = true;
+            document.getElementById('retro').style.display = 'none';
+            document.getElementById('retro').className = 'retroalimentacion';
+
+            document.getElementById('num-p').textContent = actual + 1;
+            document.getElementById('contador').textContent = `${actual + 1}/5`;
+            document.getElementById('texto-pregunta').textContent = preguntas[actual].texto;
+            
+            // Actualizar barra de progreso
+            document.getElementById('barra-progreso').style.width = `${((actual) / 5) * 100}%`;
+        }
+
+        function seleccionar(valor) {
+            seleccion = valor;
+            document.getElementById('opcion-si').classList.toggle('seleccionada', valor === 'si');
+            document.getElementById('opcion-no').classList.toggle('seleccionada', valor === 'no');
+            document.getElementById('boton-continuar').disabled = false;
+        }
+
+        function verificar() {
+            const esCorrecta = seleccion === preguntas[actual].respuesta;
+            
+            if (esCorrecta) aciertos++;
+
+            const caja = document.getElementById('retro');
+            caja.style.display = 'block';
+            caja.className = `retroalimentacion ${esCorrecta ? 'correcto' : 'incorrecto'}`;
+            
+            if (esCorrecta) {
+                caja.textContent = preguntas[actual].explicacion;
+            } else {
+                caja.textContent = `❌ Incorrecto. La respuesta correcta es: ${preguntas[actual].respuesta === 'si' ? 'Sí' : 'No'}`;
+            }
+
+            // Cambiar botón para avanzar
+            document.getElementById('boton-continuar').textContent = actual < 4 ? 'Siguiente pregunta' : 'Ver resultado';
+            document.getElementById('boton-continuar').onclick = siguiente;
+        }
+
+        function siguiente() {
+            actual++;
+            if (actual >= 5) {
+                mostrarFinal();
+                return;
+            }
+            // Restaurar botón
+            document.getElementById('boton-continuar').textContent = 'Continuar';
+            document.getElementById('boton-continuar').onclick = verificar;
+            cargarPregunta();
+        }
+
+        function mostrarFinal() {
+            document.getElementById('pantalla-leccion').style.display = 'none';
+            document.getElementById('pantalla-final').style.display = 'block';
+            
+            const porcentaje = Math.round((aciertos / 5) * 100);
+            document.getElementById('barra-progreso').style.width = '100%';
+            
+            if (aciertos === 5) {
+                document.getElementById('mensaje-final').className = 'feliz';
+                document.getElementById('mensaje-final').textContent = '🎉 ¡Felicidades! ¡Todo correcto!';
+            } else {
+                document.getElementById('mensaje-final').className = 'triste';
+                document.getElementById('mensaje-final').textContent = '¡Sigue practicando! 💪';
+            }
+            
+            document.getElementById('puntuacion-final').innerHTML = 
+                `Acertaste <strong>${aciertos}</strong> de <strong>5</strong> preguntas (${porcentaje}%)`;
+        }
+
+        function reiniciar() {
+            actual = 0;
+            aciertos = 0;
+            document.getElementById('pantalla-leccion').style.display = 'block';
+            document.getElementById('pantalla-final').style.display = 'none';
+            cargarPregunta();
+        }
+
+        // Iniciar
+        cargarPregunta();
+    </script>
+</body>
+</html>

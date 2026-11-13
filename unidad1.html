@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aprendiendo...</title>
+<link rel="stylesheet" href="estilo.css">
+<style>
+    section { display: none !important; }
+    section.activa { display: block !important; }
+
+    .card { cursor: pointer; border: 4px solid transparent; }
+    .card.seleccionada { border-color: #ffd700; }
+    .card.correcta { border-color: #2ecc71; }
+    .card.incorrecta { border-color: #e74c3c; }
+
+    .resultado { font-size: 1.4em; font-weight: bold; min-height: 1.5em; color: inherit; opacity: 1; visibility: visible; }
+    .entrada { font-size: 1.4em; padding: 10px; border-radius: 8px; border: 2px solid #ccc; }
+
+    #vidas { letter-spacing: 4px; }
+    #vidas.perdida { animation: sacudir 0.4s; }
+    @keyframes sacudir {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-8px); }
+        75% { transform: translateX(8px); }
+    }
+    #gameover { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; text-align: center; color: white; }
+    #gameover.visible { display: flex; }
+    .gameover-caja { padding: 30px; }
+
+    /* Barra de progreso */
+    .progreso-wrap { display: flex; align-items: center; gap: 12px; padding: 10px 20px; background: #f3f3f3; }
+    .progreso-barra { flex: 1; height: 20px; background: #ddd; border-radius: 10px; overflow: hidden; }
+    .progreso-relleno { height: 100%; width: 0%; background: linear-gradient(90deg, #58cc02, #89e219); border-radius: 10px; transition: width 0.4s ease; }
+    .progreso-texto { font-weight: bold; min-width: 45px; text-align: right; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1 id="vidas">💗💗💗💗💗</h1>
+</header>
+
+<div id="gameover">
+    <div class="gameover-caja">
+        <h1>💔 Te quedaste sin vidas</h1>
+        <p>No te rindas, ¡inténtalo otra vez!</p>
+        <button class="comprobar" onclick="location.reload()">INTENTAR DE NUEVO</button>
+    </div>
+</div>
+
+<div class="progreso-wrap">
+    <div class="progreso-barra">
+        <div class="progreso-relleno" id="progresoRelleno"></div>
+    </div>
+    <span class="progreso-texto" id="progresoTexto">0%</span>
+</div>
+
+<!-- LECCIÓN 1 -->
+<section id="leccion1" class="activa" style="background-color:#502258;color:white;">
+    <h3>Nueva palabra</h3>
+    <h1>¿Cuál de estos es Rosa?</h1>
+
+    <div class="container">
+        <div class="card" data-audio="audio2" data-correcta="true">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC3Z4UbpC_cEkWZtUSNyvfA-zPaMDXQIsbdINVznf-Lg&s=10" alt="Color rosa" alt="rosa">
+            <h3>Roxa</h3>
+        </div>
+        <div class="card" data-audio="audio1">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXZrcF0QB_9-TSCDY_E1sPuU5VyUWV64rGqYHtnHMYVw&s=10" alt="Color naranja" alt="naranja">
+            <h3>Naraxa</h3>
+        </div>
+        <div class="card" data-audio="audio3">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcy5lzRG0e9GrApvKAwIUubnTfUHp2UDrPpgqBbD5zeA&s=10" alt="Color blanco" alt="café">
+            <h3>Boxo</h3>
+        </div>
+    </div>
+
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="saltar()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+<!-- LECCIÓN 2 -->
+<section id="leccion2" style="background-color:#a3d618;">
+    <h3>Nueva palabra</h3>
+    <h1>¿Cuál de estos es el Café?</h1>
+
+    <div class="container">
+        <div class="card" data-audio="audio1">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXZrcF0QB_9-TSCDY_E1sPuU5VyUWV64rGqYHtnHMYVw&s=10" alt="Color naranja" alt="naranja" alt="naranja">
+            <h3>Naraxa</h3>
+        </div>
+        <div class="card" data-audio="audio3" data-correcta="true">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcy5lzRG0e9GrApvKAwIUubnTfUHp2UDrPpgqBbD5zeA&s=10" alt="Color blanco" alt="café" alt="café">
+            <h3>Boxo</h3>
+        </div>
+        <div class="card">
+            <img src="https://img.magnific.com/vector-gratis/icono-verduras-frescas-aisladas-limon_24640-134403.jpg?semt=ais_hybrid&w=740&q=80" alt="verde">
+            <h3>K'apaxi</h3>
+        </div>
+    </div>
+
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="saltar()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+<!-- LECCIÓN 3 -->
+<section id="leccion3" style="background-color:#b316cf;">
+    <h3>Nueva palabra</h3>
+    <h1>¿Cuál de estos es un Té?</h1>
+
+    <div class="container">
+        <div class="card" data-audio="audio1">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXZrcF0QB_9-TSCDY_E1sPuU5VyUWV64rGqYHtnHMYVw&s=10" alt="Color naranja" alt="naranja" alt="naranja" alt="naranja">
+            <h3>Naraxa</h3>
+        </div>
+        <div class="card" data-audio="audio3">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcy5lzRG0e9GrApvKAwIUubnTfUHp2UDrPpgqBbD5zeA&s=10" alt="Color blanco" alt="café" alt="café" alt="café">
+            <h3>Boxo</h3>
+        </div>
+        <div class="card" data-correcta="true">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ2NTrJpKpjg0IYgEzJEXCXtucwTVnQpRzbZECUVuRVw&s=10" alt="té">
+            <h3>Uthe</h3>
+        </div>
+    </div>
+
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="saltar()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+<!-- LECCIÓN 4 -->
+<section id="leccion4" style="background-color:#35073d;color:white;">
+    <h3>Traduzcamos la palabra</h3>
+    <h1>¿Qué significa BOXO en español?</h1>
+
+    <div class="container">
+        <div class="card"><h3>Naranja</h3></div>
+        <div class="card" data-correcta="true"><h3>Café</h3></div>
+        <div class="card"><h3>Verde</h3></div>
+    </div>
+
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="saltar()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+<!-- LECCIÓN 5 -->
+<section id="leccion5" style="background-color:#3a18d1;color:white;" data-respuesta="te">
+    <h3>Traduzcamos la palabra</h3>
+    <h1>Escribe UTHE en español</h1>
+
+    <input type="text" class="entrada" id="respuesta5" placeholder="Escribe aquí..." autocomplete="off">
+
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="saltar()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+<audio id="audio1" src="audio/naranxa.ogg"></audio>
+<audio id="audio2" src="audio/Roxa.ogg"></audio>
+<audio id="audio3" src="audio/boxo.ogg"></audio>
+
+<script>
+const TOTAL = 5;
+const PUNTOS_POR_ACIERTO = 10;
+
+let actual = 1;
+let puntaje = 0;
+let vidas = 5;
+let comprobado = false;
+
+function normalizar(texto) {
+    return texto.trim().toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function actualizarVidas(animar) {
+    const el = document.getElementById("vidas");
+    el.textContent = vidas > 0 ? "💗".repeat(vidas) + " " + vidas : "🖤 0";
+    if (animar) {
+        el.classList.remove("perdida");
+        void el.offsetWidth; // reinicia la animación
+        el.classList.add("perdida");
+    }
+}
+
+function seccionActual() {
+    return document.getElementById("leccion" + actual);
+}
+
+function reproducir(id) {
+    const audio = document.getElementById(id);
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play().catch(() => {}); // evita errores si falta el archivo
+}
+
+// Selección de tarjetas (y audio si lo tienen)
+document.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("click", () => {
+        if (comprobado) return;
+        const sec = card.closest("section");
+        sec.querySelectorAll(".card").forEach(c => c.classList.remove("seleccionada"));
+        card.classList.add("seleccionada");
+        if (card.dataset.audio) reproducir(card.dataset.audio);
+    });
+});
+
+function comprobar() {
+    const sec = seccionActual();
+    const resultado = sec.querySelector(".resultado");
+    const boton = sec.querySelector(".comprobar");
+
+    // Segundo clic: continuar
+    if (comprobado) {
+        siguiente();
+        return;
+    }
+
+    let acerto = false;
+
+    if (sec.dataset.respuesta) {
+        // Lección de escribir
+        const valor = sec.querySelector("input").value;
+        if (!valor.trim()) {
+            resultado.textContent = "Escribe una respuesta primero.";
+            return;
+        }
+        acerto = normalizar(valor) === normalizar(sec.dataset.respuesta);
+    } else {
+        // Lección de tarjetas
+        const elegida = sec.querySelector(".card.seleccionada");
+        if (!elegida) {
+            resultado.textContent = "Elige una opción primero.";
+            return;
+        }
+        acerto = elegida.dataset.correcta === "true";
+        elegida.classList.remove("seleccionada");
+        elegida.classList.add(acerto ? "correcta" : "incorrecta");
+        if (!acerto) {
+            const buena = sec.querySelector('.card[data-correcta="true"]');
+            if (buena) buena.classList.add("correcta");
+        }
+    }
+
+    comprobado = true;
+
+    if (acerto) {
+        puntaje += PUNTOS_POR_ACIERTO;
+        resultado.textContent = "¡Correcto! 🎉";
+    } else {
+        vidas--;
+        actualizarVidas(true);
+        resultado.textContent = "Incorrecto 😢";
+        if (vidas <= 0) {
+            document.getElementById("gameover").classList.add("visible");
+            return;
+        }
+    }
+
+    boton.textContent = "CONTINUAR";
+}
+
+function saltar() {
+    siguiente();
+}
+
+function actualizarProgreso(completadas) {
+    const porcentaje = Math.round((completadas / TOTAL) * 100);
+    document.getElementById("progresoRelleno").style.width = porcentaje + "%";
+    document.getElementById("progresoTexto").textContent = porcentaje + "%";
+}
+
+function siguiente() {
+    comprobado = false;
+    seccionActual().classList.remove("activa");
+    actualizarProgreso(actual); // lecciones completadas (o saltadas)
+
+    if (actual >= TOTAL) {
+        mostrarFinal();
+        return;
+    }
+    actual++;
+    seccionActual().classList.add("activa");
+    window.scrollTo(0, 0);
+}
+
+function mostrarFinal() {
+    fetch("actualizar_progreso.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ experienciaGanada: puntaje })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("🎉 ¡Felicidades!\n\nGanaste " + puntaje + " puntos.\nTu progreso ha sido actualizado.");
+            window.location.href = "index.html";
+        } else {
+            alert("Error: " + data.mensaje);
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Terminaste las lecciones con " + puntaje + " puntos, pero hubo un error de conexión con el servidor.");
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duolingo Otomí - San Nicolás Peralta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        /* Barra lateral */
+        .sidebar {
+            width: 220px;
+            background-color: #7634cc;
+            color: rgb(236, 236, 236);
+            padding: 2rem 1rem;
+        }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e1dfe2;
+            padding-bottom: 1rem;
+        }
+        .menu-links {
+            list-style: none;
+            padding: 0;
+        }
+        .menu-links li {
+            margin: 0.5rem 0;
+        }
+        .menu-links a {
+            color: #e8e5e9;
+            text-decoration: none;
+            display: block;
+            padding: 0.6rem 0.8rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .menu-links a:hover,
+        .menu-links a.active {
+            background-color: #ca25b4;
+        }
+        /* Contenido principal */
+        .main-content {
+            flex: 1;
+            padding: 2rem 3rem;
+            background-color: #dfcae9;
+        }
+        /* Enlaces superiores */
+        .top-links {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #c108da;
+        }
+        .top-links ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 2rem;
+        }
+        .top-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .top-links a:hover,
+        .top-links a.active {
+            text-decoration: underline;
+        }
+        /* Secciones — solo una visible a la vez */
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        h1, h2 {
+            color: #222;
+            margin-bottom: 1.2rem;
+        }
+        p {
+            margin-bottom: 0.8rem;
+            color: #444;
+            line-height: 1.6;
+        }
+        .campo {
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú lateral -->
+    <nav class="sidebar">
+        <div class="logo">Duolingo Otomí</div>
+        <ul class="menu-links">
+            <li><a href="vocales.html">Vocales</a></li>
+            <li><a href="conso.html">Consonantes</a></li>
+            <li><a href="leccion1.html">Lección 1</a></li>
+            <li><a href="juegos.html">Juegos</a></li>
+            <li><a href="per.html">Perfil</a></li>
+            <li><a href="cerrar.html">Cerrar sesión</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <!-- Navegación superior -->
+        <div class="top-links">
+            <ul>
+                <li><a data-seccion="inicio" class="active">Inicio</a></li>
+                <li><a data-seccion="lugares">Lugares para visitar</a></li>
+                <li><a data-seccion="costumbres">Costumbres</a></li>
+                <li><a data-seccion="comida">Comida tradicional</a></li>
+            </ul>
+        </div>
+
+        <!-- Sección Inicio -->
+        <div id="inicio" class="content-section active">
+            <h1>Bienvenido</h1>
+            <p>Este es el contenido principal de la página.</p>
+            <p>Selecciona <strong>Lección 1</strong> o alguna de las opciones de arriba para ver el contenido.</p>
+            <img src="c:\Users\Alumnos\Downloads\Conectar página Otomí a consonantes.png"width="300">
+        </div>
+         <!-- Sección Costumbres -->
+        <div id="costumbres" class="content-section">
+            <h2>Costumbres</h2>
+            <p>Aquí escribe sobre las tradiciones, fiestas y costumbres de la comunidad:</p>
+            <div class="campo">
+                <p><strong>Tradición principal:</strong> El Tradicional Paseo de los Huehuenches</p>
+            </div>
+            <div class="campo">
+                <p><strong>Cuándo se celebra:</strong>Se celebra con gran alegría cada 25 de diciembre y  1 de enero para dar la bienvenida al Año Nuevo. Se trata de una festividad de tipo carnavalesco donde los habitantes se disfrazan, bailan y conviven por las calles. Un elemento muy distintivo y único de esta tradición son los chicotazos (golpes controlados con chicotes o látigos); en la cosmovisión local de la comunidad, recibir estos chicotazos es un símbolo arraigado que significa buena suerte y purificación para el año que comienza</p>
+            </div>
+            <div class="campo">
+           <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS380E-XSMdxkr88vPhlxK106fWdke6xexeicEUPkkr02PqO_pG0xrFBqJ7&s=10>
+            </div>
+        </div>
+
+        <!-- Sección Lugares para visitar -->
+        <div id="lugares" class="content-section">
+            <h2>Lugares para visitar</h2>
+            <p>Aquí agrega la información sobre los lugares de San Nicolás Peralta y sus alrededores:</p>
+            <div class="campo">
+                <p><strong>Nombre del lugar:</strong>Laguna de San Nicolás Peralta</p>
+            </div>
+            <div class="campo">
+                <p><strong>Descripción:</strong> Un cuerpo de agua rodeado de humedales y paisajes naturales característicos del valle de Lerma, ideal para apreciar la flora y fauna de la región o disfrutar de vistas panorámicas.</p>
+            </div>
+         <div class="campo">
+                <p><strong>Nombre del lugar:</strong>Cerro de la Verónica: </p>
+            </div>
+            <div class="campo">
+                <p><strong>Descripción:</strong> Se localiza prácticamente al lado de San Nicolás Peralta (a unos 4 minutos en auto). Es un sitio majestuoso con una gran carga mística y prehispánica. Históricamente dedicado al dios Tláloc, hoy en día los visitantes y locales acuden a admirar el "Divino Rostro", una imagen religiosa plasmada sobre la pared de una enorme roca protegida por un nicho. Cuenta con bancas para descansar y en días despejados ofrece una vista espectacular donde se alcanza a ver el Iztaccíhuatl. Ideal para caminatas tranquilas de fin de semana.</p>
+            </div>
+            <div class="campo">
+                <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSplBhQAylfrUaMpSXCfj56kR3UUfwZ1b2IkW28b0-nYQ&s=10/>
+
+            </div>
+
+       
+
+        <!-- Sección Comida tradicional -->
+        <div id="comida" class="content-section">
+            <h2>Comida tradicional</h2>
+            <p>Agrega aquí los platillos típicos, ingredientes y formas de preparación:</p>
+            <div class="campo">
+                <p><strong>Platillo:</strong> _________________________</p>
+            </div>
+            <div class="campo">
+                <p><strong>Ingredientes:</strong> _________________________</p>
+            </div>
+            <div class="campo">
+                <p><strong>Preparación:</strong> _________________________</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Código para cambiar de sección sin recargar -->
+    <script>
+        const enlaces = document.querySelectorAll('.top-links a');
+        const secciones = document.querySelectorAll('.content-section');
+
+        enlaces.forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                // Quitar clase activa de todos
+                enlaces.forEach(e => e.classList.remove('active'));
+                secciones.forEach(s => s.classList.remove('active'));
+                
+                // Activar el seleccionado
+                enlace.classList.add('active');
+                const idSeccion = enlace.getAttribute('data-seccion');
+                document.getElementById(idSeccion).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

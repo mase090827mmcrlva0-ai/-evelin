@@ -1,0 +1,168 @@
+        :root {
+            --rojo: #e63946;
+            --naranja: #ff8c1a;
+            --amarillo: #ffc933;
+            --verde: #2ec4a0;
+            --azul: #2b7de9;
+            --morado: #8a4fff;
+            --rosa: #ff5fa2;
+            --crema: #fff8ec;
+            --tinta: #2a2140;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100%;
+            font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+            color: var(--tinta);
+            background:
+                radial-gradient(circle at 10% 15%, rgba(255, 201, 51, 0.55) 0 90px, transparent 91px),
+                radial-gradient(circle at 90% 20%, rgba(255, 95, 162, 0.45) 0 120px, transparent 121px),
+                radial-gradient(circle at 15% 85%, rgba(46, 196, 160, 0.45) 0 110px, transparent 111px),
+                radial-gradient(circle at 88% 82%, rgba(43, 125, 233, 0.4) 0 100px, transparent 101px),
+                var(--crema);
+            background-attachment: fixed;
+            padding: 2rem 1rem 3rem;
+            text-align: center;
+        }
+
+        /* Título con degradado arcoíris */
+        h1 {
+            font-size: clamp(2.2rem, 7vw, 4rem);
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--rojo), var(--naranja), var(--amarillo), var(--verde), var(--azul), var(--morado), var(--rosa));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        /* Contenedor de tarjetas */
+        .contenedor {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.75rem;
+            max-width: 1000px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* Tarjeta */
+        .tarjeta-color {
+            width: 240px;
+            padding: 1rem 1rem 1.25rem;
+            background: #fff;
+            border: 6px solid var(--rojo);
+            border-radius: 28px;
+            box-shadow: 8px 8px 0 var(--tinta);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tarjeta-color:hover {
+            transform: translate(-4px, -4px) rotate(-1.5deg);
+            box-shadow: 12px 12px 0 var(--tinta);
+        }
+
+        .tarjeta-color:nth-child(1) { border-color: var(--rojo); }
+        .tarjeta-color:nth-child(2) { border-color: var(--azul); }
+        .tarjeta-color:nth-child(3) { border-color: var(--naranja); }
+        .tarjeta-color:nth-child(4) { border-color: var(--verde); }
+        .tarjeta-color:nth-child(5) { border-color: var(--morado); }
+        .tarjeta-color:nth-child(6) { border-color: var(--rosa); }
+
+        .tarjeta-color img {
+            display: block;
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 18px;
+            margin-bottom: 1rem;
+        }
+
+        /* Nombre del color en otomí */
+        .tarjeta-color p {
+            display: inline-block;
+            padding: 0.35rem 1.4rem;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #fff;
+            background: var(--rojo);
+            border-radius: 999px;
+        }
+
+        .tarjeta-color:nth-child(1) p { background: var(--rojo); }
+        .tarjeta-color:nth-child(2) p { background: var(--azul); }
+        .tarjeta-color:nth-child(3) p { background: var(--naranja); }
+        .tarjeta-color:nth-child(4) p { background: var(--verde); }
+        .tarjeta-color:nth-child(5) p { background: var(--morado); }
+        .tarjeta-color:nth-child(6) p { background: var(--rosa); }
+
+        /* El blanco lleva texto oscuro para leerse bien */
+        .tarjeta-color:nth-child(2) p {
+            background: #fff;
+            color: var(--tinta);
+            border: 3px solid var(--tinta);
+        }
+
+        .tarjeta-color p.naranja-texto {
+            background: var(--naranja);
+            color: #fff;
+        }
+
+        /* Botón */
+        .boton-accion {
+            font: inherit;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #fff;
+            padding: 0.85rem 2.2rem;
+            border: 4px solid var(--tinta);
+            border-radius: 999px;
+            cursor: pointer;
+            background: linear-gradient(90deg, var(--rojo), var(--naranja), var(--amarillo), var(--verde), var(--azul), var(--morado));
+            background-size: 200% 100%;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+            box-shadow: 6px 6px 0 var(--tinta);
+            transition: background-position 0.5s ease, transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .boton-accion:hover {
+            background-position: 100% 0;
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0 var(--tinta);
+        }
+
+        .boton-accion:active {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0 var(--tinta);
+        }
+
+        .boton-accion:focus-visible {
+            outline: 4px solid var(--morado);
+            outline-offset: 4px;
+        }
+
+        /* Móvil y accesibilidad */
+        @media (max-width: 520px) {
+            .tarjeta-color {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+        }

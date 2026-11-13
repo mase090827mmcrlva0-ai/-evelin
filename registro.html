@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro de Usuario</title>
+
+
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background:#f4f4f4;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+    }
+
+
+    .formulario{
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        width:400px;
+        box-shadow:0 0 10px rgba(0,0,0,.2);
+    }
+
+
+    .formulario h2{
+        text-align:center;
+    }
+
+
+    input, select{
+        width:100%;
+        padding:10px;
+        margin:8px 0;
+        border:1px solid #ccc;
+        border-radius:5px;
+    }
+
+
+    button{
+        width:100%;
+        padding:10px;
+        background:#28a745;
+        color:white;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+    }
+
+
+    button:hover{
+        background:#218838;
+    }
+
+
+    #mensaje{
+        margin-top:10px;
+        text-align:center;
+    }
+</style>
+
+
+</head>
+<body>
+
+
+<div class="formulario">
+    <h2>Registro Usuario</h2>
+
+
+    <form id="formRegistro">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+
+
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+
+
+        <input type="password" name="contrasena" minlength="6" placeholder="Contraseña (mín. 6)" required>
+
+
+        <input type="date" name="fecha_nac" required>
+
+
+        <input type="text" name="pais" placeholder="País" required>
+
+
+        <select name="nivel" required>
+            <option value="basico">Básico</option>
+            <option value="intermedio">Intermedio</option>
+            <option value="avanzado">Avanzado</option>
+        </select>
+
+
+        <button type="submit">Registrarse</button>
+    </form>
+
+
+    <div id="mensaje"></div>
+</div>
+
+
+<script>
+document.getElementById("formRegistro").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const datos = {
+        nombre: this.nombre.value,
+        email: this.email.value,
+        contrasena: this.contrasena.value,
+        fecha_nac: this.fecha_nac.value,
+        pais: this.pais.value,
+        nivel: this.nivel.value
+    };
+
+    const msg = document.getElementById("mensaje");
+    msg.textContent = "Enviando...";
+
+    if (location.protocol === "file:") {
+        msg.textContent = "❌ Abriste el archivo con doble clic. Ábrelo desde http://localhost/temporal/registro.html (con Apache encendido en XAMPP).";
+        return;
+    }
+
+    try {
+        const respuesta = await fetch("registro.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(datos)
+        });
+
+        const texto = await respuesta.text();
+        let resultado;
+        try {
+            resultado = JSON.parse(texto);
+        } catch (err) {
+            msg.textContent = "❌ El servidor no devolvió JSON (HTTP " + respuesta.status + "): " + texto.substring(0, 500);
+            return;
+        }
+
+        msg.textContent = resultado.mensaje;
+        if (resultado.estado) {
+            this.reset();
+            setTimeout(() => { window.location.href = resultado.redirect || "Unidad1.html"; }, 800);
+        }
+    } catch (error) {
+        console.error(error);
+        msg.textContent = "❌ No se pudo conectar con el servidor: " + error.message;
+    }
+});
+</script>
+
+
+</body>
+</html>

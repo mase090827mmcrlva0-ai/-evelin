@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instrucciones - Lengua Otomí</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f5fc;
+    color: #24152e;
+    margin: 25px;
+}
+
+.contenedor {
+    max-width: 1100px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #451064;
+    font-size: 40px;
+}
+
+h2 {
+    background-color: #e8d1f2;
+    color: #451064;
+    padding: 12px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.paso {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.numero {
+    background-color: #7614a6;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.teclado {
+    background-color: #eedcf4;
+    border: 2px solid #9b38b5;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    margin: 15px;
+}
+
+.teclado button {
+    background-color: #eedcf4;
+    color: #68118c;
+    border: none;
+    font-size: 23px;
+    font-weight: bold;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.teclado button:hover {
+    background-color: #d8b5e8;
+    border-radius: 8px;
+}
+
+input {
+    padding: 12px;
+    width: 80%;
+    border: 2px solid #9b38b5;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.final {
+    background-color: #e8d1f2;
+    color: #451064;
+    border-radius: 30px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h1>🌸 Lengua Otomí 🌸</h1>
+
+<h2>Instrucciones:</h2>
+
+<p>
+El otomí es una lengua originaria de México, hablada principalmente
+en los estados de México, Hidalgo y Querétaro. En esta sección
+aprenderás algunas palabras básicas y cómo escribirlas correctamente.
+</p>
+
+<div class="paso">
+<div class="numero">1</div>
+<p>
+Para escuchar la pronunciación de las palabras, solamente debes
+dar clic en el botón de audio que se encuentra junto a cada palabra.
+</p>
+</div>
+
+<div class="paso">
+<div class="numero">2</div>
+<p>
+Si en algún momento se te dificulta escribir alguna palabra,
+la escritura otomí utiliza caracteres especiales que no se
+encuentran en un teclado convencional.
+</p>
+</div>
+
+<div class="paso">
+<div class="numero">3</div>
+<p>
+Para escribir estos caracteres, utiliza el <b>teclado otomí virtual</b>.
+Presiona el botón morado que se encuentra en la esquina inferior
+derecha de la pantalla. Se abrirá un panel con los caracteres especiales.
+</p>
+</div>
+
+<div class="paso">
+<div class="numero">4</div>
+<p>
+Selecciona el campo de texto donde deseas escribir y después
+presiona el carácter especial que necesites. Algunos caracteres
+disponibles son:
+</p>
+</div>
+
+<div class="teclado">
+<button onclick="escribir('ä')">ä</button>
+<button onclick="escribir('ë')">ë</button>
+<button onclick="escribir('ï')">ï</button>
+<button onclick="escribir('ö')">ö</button>
+<button onclick="escribir('ü')">ü</button>
+<button onclick="escribir('â')">â</button>
+<button onclick="escribir('ê')">ê</button>
+<button onclick="escribir('î')">î</button>
+<button onclick="escribir('ô')">ô</button>
+<button onclick="escribir('û')">û</button>
+<button onclick="escribir('ñ')">ñ</button>
+<button onclick="escribir('ẑ')">ẑ</button>
+<button onclick="escribir('í')">í</button>
+<button onclick="escribir('ç')">ç</button>
+<button onclick="escribir('ƶ')">ƶ</button>
+<button onclick="escribir('ǫ')">ǫ</button>
+</div>
+
+<p>
+Para escribir mayúsculas, puedes utilizar las versiones en
+mayúscula de los caracteres.
+</p>
+
+<div class="paso">
+<div class="numero">5</div>
+<p>
+En los ejercicios, escucha el audio y escribe la palabra
+correspondiente utilizando el teclado virtual si es necesario.
+</p>
+</div>
+
+<h2>Prueba el teclado otomí:</h2>
+
+<p>Escribe una palabra utilizando los siguientes caracteres:</p>
+
+<center>
+<input type="text" id="palabra" placeholder="Escribe aquí...">
+</center>
+
+<div class="final">
+¡Aprende Otomí de una manera fácil y divertida!
+🌸
+</div>
+
+</div>
+
+<script>
+
+function escribir(letra) {
+    document.getElementById("palabra").value += letra;
+}
+
+</script>
+
+</body>
+</html>
